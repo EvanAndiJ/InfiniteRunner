@@ -40,11 +40,11 @@ let pointer;
 
 function preload() {
   this.load.image('bg', '../img/background.png')
-  this.load.spritesheet('ground', '../img/ground.png', { frameWidth: 240, frameHeight: 32 });
-  this.load.spritesheet('mort', '../img/mort.png', { frameWidth: 24, frameHeight: 24 });
-  this.load.spritesheet('torchS', '../img/torchS.png', {frameWidth: 8, frameHeight: 24});
-  this.load.spritesheet('torchM', '../img/torchM.png', {frameWidth: 8, frameHeight: 32});
-  this.load.spritesheet('torchL', '../img/torchL.png', {frameWidth: 8, frameHeight: 40});
+  this.load.spritesheet('ground', './img/ground.png', { frameWidth: 240, frameHeight: 32 });
+  this.load.spritesheet('mort', './img/mort.png', { frameWidth: 24, frameHeight: 24 });
+  this.load.spritesheet('torchS', './img/torchS.png', {frameWidth: 8, frameHeight: 24});
+  this.load.spritesheet('torchM', './img/torchM.png', {frameWidth: 8, frameHeight: 32});
+  this.load.spritesheet('torchL', './img/torchL.png', {frameWidth: 8, frameHeight: 40});
 }
 
 function create() {
@@ -89,7 +89,7 @@ function create() {
   })
 
   const bg = this.add.image(0, 0, 'bg').setOrigin(0)
-  howTo = this.add.text(120, 60, `Press Spacebar!`, { fontSize: '12px', color:'#000'}).setOrigin(.5)
+  howTo = this.add.text(120, 60, `Press Spacebar!`, { fontSize: '20px', fontStyle:'bold', color:'#000'}).setOrigin(.5)
   ground = this.physics.add.staticSprite(120, 144, 'ground', 2)
 
   //line for scoring
@@ -221,12 +221,12 @@ function gameOver() {
   isGameOver = true
   
   const modal = this.add.group();
-  const box = this.add.rectangle(120, 80, 75, 50, 0xdb9730, 1).setStrokeStyle(2, 0x4f3829);
+  const box = this.add.rectangle(120, 80, 130, 65, 0xdb9730, 1).setStrokeStyle(2, 0x4f3829);
   modal.add(box);
-  modal.add(this.add.text(85, 60, `Game Over!`, {fontSize: '12px', fill: '#000'}));
-  modal.add(this.add.text(92, 75, `Score: ${score}`, {fontSize: '10px', fill: '#000'}));
+  modal.add(this.add.text(65, 60, `Game Over!`, {fontSize: '18px', fill: '#000'}));
+  modal.add(this.add.text(72, 75, `Score: ${score}`, {fontSize: '15px', fill: '#000'}));
 
-  const butt = this.add.rectangle(108, 90, 27, 10, 0xdb9730, 1)
+  const butt = this.add.rectangle(104, 95, 30, 12, 0xdb9730, 1)
   .setStrokeStyle(2, 0x4f3829)
   .setOrigin(0)
   .setName('butt')
@@ -243,6 +243,6 @@ function gameOver() {
     this.scene.start();
   }, this);
   modal.add(butt)
-  modal.add(this.add.text(butt.x+2, butt.y, 'Reset', {fontSize: '8px', fill: '#000'}))
+  modal.add(this.add.text(butt.x+3, butt.y+3, 'Reset', {fontSize: '8px', fill: '#000'}))
 }
 
