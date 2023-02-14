@@ -39,7 +39,7 @@ let cursors;
 let pointer;
 
 function preload() {
-  this.load.image('bg', '../img/background.png')
+  this.load.image('bg', './img/background.png')
   this.load.spritesheet('ground', './img/ground.png', { frameWidth: 240, frameHeight: 32 });
   this.load.spritesheet('mort', './img/mort.png', { frameWidth: 24, frameHeight: 24 });
   this.load.spritesheet('torchS', './img/torchS.png', {frameWidth: 8, frameHeight: 24});
