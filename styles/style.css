@@ -1,0 +1,29 @@
+:root {
+  --test: 1px dotted blue;
+  --black: rgb(54, 40, 107);
+  --shade: rgba(55, 40, 107, 0.655);
+  --white: rgb(208, 198, 251);
+  --mainFont: Arial, Helvetica, sans-serif;
+  background-color: rgb(199, 179, 167);
+}
+/* @media only screen and (min-width: 560px) { */
+
+#page {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+}
+#page.pageRunner {
+  width: 24em;
+}
+#game {
+  margin: 4em;
+  transform: scale(1.5)
+}
+
+
+/* #runnerInfo {
+  font-family: var(--mainFont);
+} */
+/* } */
