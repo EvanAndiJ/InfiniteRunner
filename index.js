@@ -1,8 +1,8 @@
 
 let config = {
   type: Phaser.AUTO,
-  width: 240,
-  height: 160,
+  width: 480,
+  height: 320,
   physics: {
     default: 'arcade',
     arcade: {
@@ -88,9 +88,9 @@ function create() {
     repeat: -1
   })
 
-  const bg = this.add.image(0, 0, 'bg').setOrigin(0)
-  howTo = this.add.text(120, 60, `Press Spacebar!`, { fontSize: '20px', fontStyle:'bold', color:'#000'}).setOrigin(.5)
-  ground = this.physics.add.staticSprite(120, 144, 'ground', 2)
+  const bg = this.add.image(0, 0, 'bg').setOrigin(0).setScale(2)
+  howTo = this.add.text(120, 60, `Press Spacebar!`, { fontSize: '30px', fontStyle:'bold', color:'#000'})
+  ground = this.physics.add.staticSprite(240, 300, 'ground', 2).setBodySize(480, 64, true).setScale(2)
 
   //line for scoring
   const line = this.add.line(32, 107, 0, 0, 0, 50)
@@ -105,7 +105,9 @@ function create() {
   mort = this.physics.add.sprite(40, 107, 'mort', 0)
   .setBodySize(16,20, true)
   .play('bounce') 
+  .setScale(2)
   this.physics.add.collider(ground, mort)
+
 
   //the hurdles 
   torches = this.physics.add.group().setName('torches')
@@ -114,14 +116,14 @@ function create() {
   this.physics.add.overlap(torches, goal, willScore, null, this)
   this.physics.add.overlap(torches, end, endTorch, null, this)
 
-  scoreBoard = this.add.text(10, 10, `Score: 0`, { fontSize: '12px'})
+  scoreBoard = this.add.text(10, 10, `Score: 0`, { fontSize: '25px'})
 }
 
 function update () {
   if (isStart) {
     const now = Date.now()
 
-    if (now - lastTorch > 1000 && Math.random() > .8) {
+    if (now - lastTorch > 2000 && Math.random() > .8) {
       lastTorch = now
       newTorch(this)
     }
@@ -183,16 +185,16 @@ function jump() {
 function newTorch (scene) {
   const options = ['S', 'M', 'L', 'p', 'p']
   const yVals = {
-    S: 116, 
-    M: 112,
-    L: 108  };
-  const xVals = [245, 253, 261]
+    S: 116*2, 
+    M: 112*2,
+    L: 108*2  };
+  const xVals = [245*2, 253*2, 261*2]
   const n = Math.floor(Math.random() * 4)
   
   for (let i=0; i<n; i++) {
     const torch = options[Math.floor(Math.random()*options.length)]
     torch != 'p' ? 
-      torches.add(scene.physics.add.sprite(xVals[i], yVals[torch], `torch${torch}`, 0)
+      torches.add(scene.physics.add.sprite(xVals[i], yVals[torch], `torch${torch}`, 0).setScale(2)
         .play(`light${torch}`))
       : null;
   }
@@ -204,7 +206,7 @@ function endTorch () {
 
 let ticker = 0;
 function willScore () {
-  ticker === 4 ? scorePoint() : ticker++;
+  ticker === 8 ? scorePoint() : ticker++;
 }
 function scorePoint () {
   ticker = 0;
@@ -221,12 +223,12 @@ function gameOver() {
   isGameOver = true
   
   const modal = this.add.group();
-  const box = this.add.rectangle(120, 80, 130, 65, 0xdb9730, 1).setStrokeStyle(2, 0x4f3829);
+  const box = this.add.rectangle(240, 160, 230, 130, 0xdb9730, 1).setStrokeStyle(2, 0x4f3829);
   modal.add(box);
-  modal.add(this.add.text(65, 60, `Game Over!`, {fontSize: '18px', fill: '#000'}));
-  modal.add(this.add.text(72, 75, `Score: ${score}`, {fontSize: '15px', fill: '#000'}));
+  modal.add(this.add.text(140, 110, `Game Over!`, {fontSize: '35px', fill: '#000'}));
+  modal.add(this.add.text(180, 145, `Score: ${score}`, {fontSize: '25px', fill: '#000'}));
 
-  const butt = this.add.rectangle(104, 95, 30, 12, 0xdb9730, 1)
+  const butt = this.add.rectangle(208, 180, 70, 24, 0xdb9730, 1)
   .setStrokeStyle(2, 0x4f3829)
   .setOrigin(0)
   .setName('butt')
@@ -243,6 +245,6 @@ function gameOver() {
     this.scene.start();
   }, this);
   modal.add(butt)
-  modal.add(this.add.text(butt.x+3, butt.y+3, 'Reset', {fontSize: '8px', fill: '#000'}))
+  modal.add(this.add.text(butt.x+12, butt.y+5, 'Reset', {fontSize: '16px', fill: '#000'}))
 }
 
